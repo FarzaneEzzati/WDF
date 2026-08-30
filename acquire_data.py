@@ -8,7 +8,7 @@ def acquire_walmart_data(dataset_name: str, download_path: str) -> None:
             print(f"INFO >> Walmart dataset downloaded successfully: {output}")
             # Store info about the downloaded dataset in a text file    
             with open(f"{download_path}/info.txt", "w") as f:
-                f.write(f"{dataset_name}: {output}")
+                f.write(f"{dataset_name}")
             
         else:
             with open(f"{download_path}/info.txt", "r") as f:
@@ -22,20 +22,12 @@ import pandas as pd
 from fredapi import Fred
 import os
 def acquire_fred_data(api_key: str, series_ids: str, start_date: str, end_date: str, download_path: str) -> None:
-    # Check for unavilable FRED data
-    available_data = [f for f in os.listdir(download_path)]
-    is_all_available = True
-    for column_name, series_id in series_ids.items():
-        if f"{series_id}.csv" not in available_data:
-            del series_ids[column_name]
-            is_all_available = False
 
-    # Return if all data is already downloaded and stored
-    if is_all_available:
-        print(f"INFO >> Data is already stored at {download_path}")
+    if len([f for f in os.listdir(download_path)]) == len(series_ids.keys()): 
+        print(f'INFO >> Fred data is already vailable at {download_path}.')
         return None
 
-
+    
     # Initialize FRED API client
     fred = Fred(api_key)
 
@@ -43,7 +35,7 @@ def acquire_fred_data(api_key: str, series_ids: str, start_date: str, end_date: 
     for column_name, series_id in series_ids.items():
         data = fred.get_series(series_id= series_id, observation_start=start_date, observation_end=end_date)
         df = pd.DataFrame({"index": data.index, column_name: data.values})
-        df.to_csv(download_path + f"/{series_id}" + ".csv")
+        df.to_csv(download_path + f"/{series_id}" + ".csv", index=False)
         print(f'INFO >> Data for series id {series_id} acquired and stored at {download_path} as .csv file.')
 
 
@@ -51,7 +43,7 @@ if __name__ == "__main__":
 
     # Walmart Sales dataset from Kaggle
     dataset_name = "mikhail1681/walmart-sales"
-    download_path = "DataAcquisition/WalmartData"
+    download_path = "Data/Walmart"
     acquire_walmart_data(dataset_name, download_path)
 
     # External API 1: FRED API (St. Louis Fed) 
@@ -66,7 +58,7 @@ if __name__ == "__main__":
         "proucer_price_index": "PPIACO",
         "effective_federal_fund": "FEDFUNDS"
     }
-    download_path = "DataAcquisition/FRED"
+    download_path = "Data/FRED"
     acquire_fred_data(api_key=fred_api, 
                       series_ids=series_ids, 
                       start_date='01-01-2010', 
