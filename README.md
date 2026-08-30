@@ -18,7 +18,7 @@ Ensure you have Python 3.8+ installed along with the required libraries:
 pip install pandas fredapi kagglehub
 ```
 
-# Walmart Sales & FRED Macroeconomic Data Integration
+# Data Integration Pipeline
 
 This script automates the data integration pipeline for augmenting the **Walmart Store Sales** with macroeconomic time-series indicators from the **FRED**.
 
