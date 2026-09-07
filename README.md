@@ -18,9 +18,9 @@ Ensure you have Python 3.8+ installed along with the required libraries:
 pip install pandas fredapi kagglehub
 ```
 
-# Data Integration Pipeline
+# Data Integration/Storage Pipeline
 
-This script automates the data integration pipeline for augmenting the **Walmart Store Sales** with macroeconomic time-series indicators from the **FRED**.
+This script automates the data integration pipeline for augmenting the **Walmart Store Sales** with macroeconomic time-series indicators from the **FRED** and storing data in an SQLite database.
 
 ---
 
@@ -41,9 +41,57 @@ Data/
 ├── Walmart/
 │   └── Walmart_Sales.csv
 ├── FRED/
-│   ├── CPIAUCSL.csv
-│   ├── GASREGW.csv
+│   ├── FEDFUNDS.csv
+│   ├── PCE.csv
+│   ├── PPIACO.csv
+│   ├── PSAVERT.csv
+│   ├── RSXFS.csv
 │   ├── UMCSENT.csv
-│   ├── UNRATE.csv
 │   └── TDSP.csv         # Quarterly Household Debt Service Ratio
-└── inegrated_data.csv   # (Generated output location)
+└── Walmart.db   # (Generated output location)
+```
+
+# Statistical Analysis & Feature Engineering
+
+This script executes statistical hypothesis testing, macroeconomic feature evaluation, and time-aware feature engineering on Walmart store sales data stored in an SQLite database. The output is a fully transformed dataset exported back to SQLite, prepared for downstream machine learning models. The transformed dataset is named "sales_economic_time_data".
+
+---
+
+## Pipeline Workflow
+
+### 1. Dataset Acquisition
+* Connects to SQLite database `Data/Walmart.db`.
+* Queries the source table `sales_economic_data` into a Pandas DataFrame.
+
+### 2. Group-Wise Statistical Validation
+Evaluates distribution assumptions across store groups to determine the valid statistical testing strategy:
+* **In-Group Normality:** Evaluated per store using the **Shapiro-Wilk test** (`stats.shapiro`).
+* **Inter-Group Homogeneity:** Evaluated across all stores using **Levene's test** (`stats.levene`).
+* **Hypothesis Decisioning:** 
+  * If normality and variance homogeneity hold ($p \ge 0.05$), ANOVA is indicated.
+  * If assumptions fail ($p < 0.05$), non-parametric alternatives (**Kruskal-Wallis** / **Mann-Whitney U**) are selected to test for significant sales differences across stores.
+
+### 3. Feature Correlation & Significance Analysis
+* **Sales Normalization:** Standardizes sales per store using Z-score calculation.
+* **Spearman Rank Correlation:** Evaluates monotonic relationships ($p < 0.05$) between normalized sales and macroeconomic/store features (`Fuel_Price`, `Temperature`, `Unemployment`, `Holiday_Flag`, FRED metrics, etc.).
+* Identifies non-significant features for downstream pruning.
+
+### 4. Time-Aware Feature Engineering
+* **Chronological Sorting:** Enforces strict date ordering per store (`Store`, `Date`) to prevent index alignment issues.
+* **Cyclical Seasonality Encoding:** Transforms calendar week numbers into continuous $360^\circ$ cyclical coordinates without creating leading `NaN` dropouts, as the dataset is small.
+* **Rolling Window Aggregations:** Computes a 4-week moving average shifted by 1 period (`shift(1)`) to eliminate target leakage.
+* **Imputation:** Implements backward filling (`bfill`) on initial window gaps to retain 100% of rows.
+
+### 5. Data Persistence
+* Writes the processed feature matrix to a new SQLite table: `sales_economic_time_data`.
+
+---
+
+## Dependencies
+* `pandas`
+* `numpy`
+* `scipy`
+* `statsmodels`
+* `sqlite3`
+
+---

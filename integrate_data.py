@@ -1,7 +1,8 @@
 import pandas as pd
 import os
+import sqlite3
 
-def integrate_datasets(data_path: str) -> None:
+def integrate_datasets(database_path: str, data_table_name: str) -> None:
     # 1. load Walmart and FRED datasets
     walmart_df = pd.read_csv(f'Data/Walmart/Walmart_Sales.csv')
 
@@ -10,6 +11,8 @@ def integrate_datasets(data_path: str) -> None:
     freds_df = {fred_csv_name.removesuffix('.csv'): 
                 pd.read_csv(f'{fred_data_path}/{fred_csv_name}') 
                 for fred_csv_name in fred_csv_names}
+
+
 
     # 2. Merge FREDs with Walmart (YearMonth basis)
     # The interval for all FREDs is on monthly basis, except for TDSP which is on quarterly basis
@@ -28,7 +31,9 @@ def integrate_datasets(data_path: str) -> None:
 
             # Merge with Walmart
             walmart_df = pd.merge(walmart_df, df_clean, on="YearMonth", how='left')
-            print(f'INFO >> Date for <{df_name}> successfully cleaned and merged with <Walmart_Sales>.')
+            print(f'INFO >> Data for <{df_name}> successfully cleaned and merged with <Walmart_Sales>.')
+
+
 
     # 3. Merge FREDs with Walmart (Quarter basis)
     tdsp_df = freds_df['TDSP']
@@ -42,15 +47,29 @@ def integrate_datasets(data_path: str) -> None:
     # On sorted date, the values in the left are compared with a row on the right
     # if the left side >=  the righ side --> perfect, assign the value on the left to the right
     # o.w., move backward to the next value in the left df
-
     walmart_df.drop(columns=['YearMonth'], inplace=True)
+    print(f'INFO >> Data for <TDSP> successfully cleaned and merged with <Walmart_Sales>.')
 
-    # Store the final dataframe in the designated path
-    walmart_df.to_csv(f'{data_path}/inegrated_data.csv', index=False)
 
+
+    # 4. Store the final data as .db or .sqlite file in the designated path
+    # 4.1 Create a connection to a new (or existing) SQLite file
+    database_path = "Data/Walmart.db"
+    data_table_name = "sales_economic_data"
+    connection = sqlite3.connect(database_path)
+
+    # 4.2 Save the dataframe as a table in the database
+    walmart_df.to_sql(name=data_table_name, con=connection, if_exists="replace", index=False)
+
+    # 4.3 Close the database connection
+    connection.close()
+    print(f'INFO >> Database <{database_path}> and table <{data_table_name}> successfully created.')
 
      
 
 
 if __name__ == '__main__':
-    integrate_datasets('Data')
+    database_path = "Data/Walmart.db"
+    data_table_name = "sales_economic_data"
+    integrate_datasets(database_path, data_table_name)
+

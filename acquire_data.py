@@ -24,7 +24,7 @@ import os
 def acquire_fred_data(api_key: str, series_ids: str, start_date: str, end_date: str, download_path: str) -> None:
 
     if len([f for f in os.listdir(download_path)]) == len(series_ids.keys()): 
-        print(f'INFO >> Fred data is already vailable at {download_path}.')
+        print(f'INFO >> Fred data is already available at {download_path}.')
         return None
 
     
@@ -51,11 +51,11 @@ if __name__ == "__main__":
     # Fetch series data
     series_ids = {
         "consumer_sentiment": "UMCSENT",
-        "advanced_retail_asles": "RSXFS",
+        "advanced_retail_sales": "RSXFS",
         "personal_consum_expend": "PCE",
         "personal_saving_rate": "PSAVERT",
         "household_dept_srvc_ratio": "TDSP",
-        "proucer_price_index": "PPIACO",
+        "producer_price_index": "PPIACO",
         "effective_federal_fund": "FEDFUNDS"
     }
     download_path = "Data/FRED"
