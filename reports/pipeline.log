@@ -1,0 +1,133 @@
+2026-09-20 17:17:39,177 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at ../../data/raw/walmart
+2026-09-20 17:17:39,215 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at ../../data/raw/fred
+2026-09-20 17:17:39,230 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-09-20 17:17:39,238 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-09-20 17:17:39,238 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-09-20 17:17:39,261 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-09-20 17:17:39,270 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-09-20 17:17:39,275 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-09-20 17:17:39,280 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-09-20 17:17:39,285 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-09-20 17:17:39,288 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-09-20 17:17:39,288 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-09-20 17:17:39,288 | INFO | src.data_prep.engineer | Variance Homogeneity and Analysis of The Data...
+2026-09-20 17:17:39,304 | INFO | src.data_prep.engineer | Store Levene's p-value: 0.0000
+2026-09-20 17:17:39,320 | INFO | src.data_prep.engineer | Joint normality and homogeneity conditions not met. Continue with <Kruskal-Wallis, Mann-Whitney U>, non-parameteric test.
+2026-09-20 17:17:39,369 | INFO | src.data_prep.engineer | Generating tim-aware features.
+2026-09-20 17:17:39,399 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-09-20 17:17:39,399 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-09-20 17:22:42,328 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at ../../data/raw/walmart
+2026-09-20 17:22:42,344 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at ../../data/raw/fred
+2026-09-20 17:22:42,360 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-09-20 17:22:42,363 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-09-20 17:22:42,374 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-09-20 17:22:42,376 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-09-20 17:22:42,384 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-09-20 17:22:42,388 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-09-20 17:22:42,401 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-09-20 17:22:42,401 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-09-20 17:22:42,401 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-09-20 17:22:42,401 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-09-20 17:22:42,401 | INFO | src.data_prep.engineer | Variance Homogeneity and Analysis of The Data...
+2026-09-20 17:22:42,432 | INFO | src.data_prep.engineer | Store Levene's p-value: 0.0000
+2026-09-20 17:22:42,432 | INFO | src.data_prep.engineer | Normality + Homogeneity failed. Run non-parameteric test.
+2026-09-20 17:22:42,484 | INFO | src.data_prep.engineer | Correlated but non-significant numeric features: ['effective_federal_fund', 'producer_price_index', 'Temperature']
+2026-09-20 17:22:42,484 | INFO | src.data_prep.engineer | Generating tim-aware features.
+2026-09-20 17:22:42,500 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-09-20 17:22:42,507 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-09-20 17:23:54,156 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at ../../data/raw/walmart
+2026-09-20 17:23:54,184 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at ../../data/raw/fred
+2026-09-20 17:23:54,210 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-09-20 17:23:54,211 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-09-20 17:23:54,220 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-09-20 17:23:54,222 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-09-20 17:23:54,222 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-09-20 17:23:54,233 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-09-20 17:23:54,238 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-09-20 17:23:54,242 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-09-20 17:23:54,247 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-09-20 17:23:54,249 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-09-20 17:23:54,251 | INFO | src.data_prep.engineer | Variance Homogeneity and Analysis of The Data...
+2026-09-20 17:23:54,275 | INFO | src.data_prep.engineer | Store Levene's p-value: 0.0000
+2026-09-20 17:23:54,275 | INFO | src.data_prep.engineer | Normality + Homogeneity failed. Run non-parameteric test.
+2026-09-20 17:23:54,344 | INFO | src.data_prep.engineer | Correlated but non-significant numeric features: ['effective_federal_fund', 'producer_price_index', 'Temperature']
+2026-09-20 17:23:54,344 | INFO | src.data_prep.engineer | Generating tim-aware features.
+2026-09-20 17:23:54,362 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-09-20 17:23:54,385 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-09-20 17:23:54,546 | INFO | src.data_prep.split | Splitting dataset with test_size=0.2...
+2026-09-20 17:26:39,378 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at ../../data/raw/walmart
+2026-09-20 17:26:39,409 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at ../../data/raw/fred
+2026-09-20 17:26:39,432 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-09-20 17:26:39,447 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-09-20 17:26:39,457 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-09-20 17:26:39,462 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-09-20 17:26:39,470 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-09-20 17:26:39,470 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-09-20 17:26:39,487 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-09-20 17:26:39,492 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-09-20 17:26:39,498 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-09-20 17:26:39,499 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-09-20 17:26:39,499 | INFO | src.data_prep.engineer | Variance Homogeneity and Analysis of The Data...
+2026-09-20 17:26:39,520 | INFO | src.data_prep.engineer | Store Levene's p-value: 0.0000
+2026-09-20 17:26:39,520 | INFO | src.data_prep.engineer | Normality + Homogeneity failed. Run non-parameteric test.
+2026-09-20 17:26:39,580 | INFO | src.data_prep.engineer | Correlated but non-significant numeric features: ['effective_federal_fund', 'producer_price_index', 'Temperature']
+2026-09-20 17:26:39,580 | INFO | src.data_prep.engineer | Generating tim-aware features.
+2026-09-20 17:26:39,600 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-09-20 17:26:39,612 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-09-20 17:26:39,798 | INFO | src.data_prep.split | Splitting dataset with test_size=0.2...
+2026-09-20 17:31:24,580 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at ../../data/raw/walmart
+2026-09-20 17:31:24,619 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at ../../data/raw/fred
+2026-09-20 17:31:24,619 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-09-20 17:31:24,638 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-09-20 17:31:24,645 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-09-20 17:31:24,653 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-09-20 17:31:24,653 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-09-20 17:31:24,668 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-09-20 17:31:24,674 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-09-20 17:31:24,685 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-09-20 17:31:24,685 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-09-20 17:31:24,685 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-09-20 17:31:24,695 | INFO | src.data_prep.engineer | Variance Homogeneity and Analysis of The Data...
+2026-09-20 17:31:24,714 | INFO | src.data_prep.engineer | Store Levene's p-value: 0.0000
+2026-09-20 17:31:24,714 | INFO | src.data_prep.engineer | Normality + Homogeneity failed. Run non-parameteric test.
+2026-09-20 17:31:24,755 | INFO | src.data_prep.engineer | Correlated but non-significant numeric features: ['effective_federal_fund', 'producer_price_index', 'Temperature']
+2026-09-20 17:31:24,755 | INFO | src.data_prep.engineer | Generating tim-aware features.
+2026-09-20 17:31:24,777 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-09-20 17:31:24,801 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-09-20 17:31:25,028 | INFO | src.data_prep.split | Splitting dataset with test_size=0.2...
+2026-09-20 17:31:25,253 | INFO | __main__ | Model <LinearRegression> started to fit.
+2026-09-20 17:31:25,253 | INFO | __main__ | Model <LinearRegression> started to predict.
+2026-09-20 17:31:25,266 | INFO | __main__ | Model <RandomForest> started to fit.
+2026-09-20 17:31:33,127 | INFO | __main__ | Model <RandomForest> started to predict.
+2026-09-20 17:31:33,225 | INFO | __main__ | Model <XGBoost> started to fit.
+2026-09-20 17:31:33,762 | INFO | __main__ | Model <XGBoost> started to predict.
+2026-09-20 17:31:33,774 | INFO | __main__ | Model <Baseline (mean)> evaluation started.
+2026-09-20 17:31:33,777 | INFO | __main__ | Models evluations stored at reports/models_evaluations.csv
+2026-09-20 17:32:09,690 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at ../../data/raw/walmart
+2026-09-20 17:32:09,722 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at ../../data/raw/fred
+2026-09-20 17:32:09,724 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-09-20 17:32:09,740 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-09-20 17:32:09,748 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-09-20 17:32:09,748 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-09-20 17:32:09,765 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-09-20 17:32:09,770 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-09-20 17:32:09,775 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-09-20 17:32:09,779 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-09-20 17:32:09,786 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-09-20 17:32:09,787 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-09-20 17:32:09,787 | INFO | src.data_prep.engineer | Variance Homogeneity and Analysis of The Data...
+2026-09-20 17:32:09,808 | INFO | src.data_prep.engineer | Store Levene's p-value: 0.0000
+2026-09-20 17:32:09,808 | INFO | src.data_prep.engineer | Normality + Homogeneity failed. Run non-parameteric test.
+2026-09-20 17:32:09,864 | INFO | src.data_prep.engineer | Correlated but non-significant numeric features: ['effective_federal_fund', 'producer_price_index', 'Temperature']
+2026-09-20 17:32:09,864 | INFO | src.data_prep.engineer | Generating tim-aware features.
+2026-09-20 17:32:09,886 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-09-20 17:32:09,893 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-09-20 17:32:10,129 | INFO | src.data_prep.split | Splitting dataset with test_size=0.2...
+2026-09-20 17:32:10,361 | INFO | __main__ | Model <LinearRegression> started to fit.
+2026-09-20 17:32:10,361 | INFO | __main__ | Model <LinearRegression> started to predict.
+2026-09-20 17:32:10,383 | INFO | __main__ | Model <RandomForest> started to fit.
+2026-09-20 17:32:19,643 | INFO | __main__ | Model <RandomForest> started to predict.
+2026-09-20 17:32:19,736 | INFO | __main__ | Model <XGBoost> started to fit.
+2026-09-20 17:32:20,244 | INFO | __main__ | Model <XGBoost> started to predict.
+2026-09-20 17:32:20,252 | INFO | __main__ | Model <Baseline (mean)> evaluation started.
+2026-09-20 17:32:20,258 | INFO | __main__ | Models evluations stored at reports/models_evaluations.csv
