@@ -23,7 +23,7 @@ from src.models.tree_models import XGBoostModel, RandomForestRegressorModel
 
 # Synthetic regression data generator
 @pytest.fixture
-def synthetic_date():
+def synthetic_data():
     X, y = make_regression(
         n_features=3, 
         n_samples=50,
@@ -36,7 +36,7 @@ def synthetic_date():
 # Specify models for which the whole test runs 
 @pytest.fixture(params=[LinearRegressionModel, XGBoostModel, RandomForestRegressorModel])
 def model(request):
-    return request.param
+    return request.param()
 
 
 # ---------------------------------------------------------------------------
@@ -73,14 +73,14 @@ def test_model_has_required_callable_methods(model):
 # Model Behavioral Tests
 # ---------------------------------------------------------------------------
 
-def test_model_runs_on_synthetic_data(model, synthetic_date):
-    X, y = synthetic_date
+def test_model_runs_on_synthetic_data(model, synthetic_data):
+    X, y = synthetic_data
     model.fit(X, y)
     y_pred = model.predict(X)
     assert y_pred is not None, f"Model {model} fails on synthetic data"
 
-def test_predictions_have_correct_shape(model, synthetic_date):
-    X, y = synthetic_date
+def test_predictions_have_correct_shape(model, synthetic_data):
+    X, y = synthetic_data
     model.fit(X, y)
     y_pred = model.predict(X)
     assert y_pred.shape == y.shape, (
@@ -88,7 +88,7 @@ def test_predictions_have_correct_shape(model, synthetic_date):
     )
 
 def test_predictions_are_numric_and_finite(model, synthetic_data):
-    X, y = synthetic_date
+    X, y = synthetic_data
     model.fit(X, y)
     y_pred = model.predict(X)
     assert np.issubdtype(y_pred.dtype, np.number)
@@ -98,8 +98,8 @@ def test_get_params_returns_dict(model):
     parameters = model.get_params()
     assert isinstance(parameters, dict)
 
-def test_model_beats_mean_baseline(model, synthetic_date):
-    X, y = synthetic_date()
+def test_model_beats_mean_baseline(model, synthetic_data):
+    X, y = synthetic_data
     model.fit(X, y)
     y_pred = model.predict(X)
 

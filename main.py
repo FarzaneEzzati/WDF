@@ -25,9 +25,9 @@ logger = logging.getLogger(__name__)
 # Data Preparation
 # ---------------------------------------------------------------------------
 from src.data_prep.fetch_integrate import get_integrated_data
-from src.data_prep.engineer import test_and_engineer
+from src.data_prep.engineer import generate_time_features
 df = get_integrated_data()
-df = test_and_engineer(df)
+df = generate_time_features(df)
 
 
 # ---------------------------------------------------------------------------

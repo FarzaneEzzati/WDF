@@ -54,9 +54,7 @@ def time_based_split(
         raise ValueError(f"test_size must be between 0 and 1, got {test_size}")
     if date_column not in df.columns:
         raise KeyError(f"'{date_column}' not found in DataFrame columns: {list(df.columns)}")
-    if target_column not in df.columns:
-        raise KeyError(f"target_column '{target_column}' not found in DataFrame columns.")
-    
+
     # Sort by date and split using test size
     df_sorted = df.sort_values(date_column).reset_index(drop=True)
     split_idx = int(len(df_sorted) * (1 - test_size))

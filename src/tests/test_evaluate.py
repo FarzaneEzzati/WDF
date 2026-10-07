@@ -22,7 +22,7 @@ def test_known_mae_value():
     y_true = np.array([10, 20, 30, 40])
     y_pred = np.array([12, 22, 28, 38])
     metrics = compute_metrics(y_true, y_pred)
-    assert metrics["mape"] == pytest.approx(2.0)
+    assert metrics["mae"] == pytest.approx(2.0)
 
 def test_metrics_return_expected_keys():
     y_true = np.array([10, 20, 30, 40])

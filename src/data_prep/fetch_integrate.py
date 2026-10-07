@@ -177,13 +177,13 @@ def integrate_datasets(
 
 def get_integrated_data(
     kaggle_dataset: str = "mikhail1681/walmart-sales",
-    kaggle_download_path: str = "../../data/raw/walmart",
+    kaggle_download_path: str = "data/raw/walmart",
     walmart_dataframe_name: str = "Walmart_Sales",
     fred_api_key: str = _os.environ.get("FRED_API_KEY"),
     fred_series_ids: dict = None,
     fred_start_date: str = "01-01-2010",
     fred_end_date: str = "12-31-2012",
-    fred_download_path: str = "../../data/raw/fred",
+    fred_download_path: str = "data/raw/fred",
 ) -> pd.DataFrame:
     """
     Fetches Walmart sales + FRED series and integrates them into a single

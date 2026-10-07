@@ -14,9 +14,9 @@ WDF/
 ├── src/
 │   ├── data_prep/
 │   │   ├── fetch_integrate.py   # download + merge Walmart sales with FRED series
-│   │   ├── engineer.py          # statistical tests + time-aware feature engineering
+│   │   ├── engineer.py          # time-aware feature engineering
 │   │   ├── split.py             # chronological (and random) train/test split
-│   │   └── feature_engineering.ipynb
+│   │   └── statistical_analysis.ipynb  # exploratory statistical tests
 │   ├── models/
 │   │   ├── base.py              # BaseModel interface (fit/predict/get_params)
 │   │   ├── linear_models.py     # LinearRegressionModel
@@ -29,7 +29,7 @@ WDF/
 │   ├── pipeline.log             # run log
 │   └── models_evaluations.csv   # metrics per model, sorted by RMSE
 │
-├── data_lookup.ipynb            # exploratory notebook
+├── test.ipynb            # notebook test runner (all or selected tests)
 └── main.py                      # orchestrates the full pipeline
 ```
 
@@ -49,12 +49,11 @@ Running `main.py` executes the full pipeline end to end:
   * `FEDFUNDS` — Effective Federal Funds Rate
 * Merges monthly indicators onto Walmart sales via an exact `YearMonth` join, and merges the quarterly `TDSP` series via `pd.merge_asof` (backward direction) to avoid lookahead bias.
 
-### 2. Statistical Testing & Feature Engineering (`src/data_prep/engineer.py`)
-* Tests within-store normality (Shapiro-Wilk) and cross-store variance homogeneity (Levene's test) to decide between parametric and non-parametric analysis.
-* Runs Kruskal-Wallis and Spearman rank correlation (on Z-score normalized sales) to flag statistically non-significant features.
-* Engineers time-aware features:
-  * Cyclical week-of-year encoding (`sin_week`, `cos_week`).
-  * A 4-week rolling mean of sales, shifted by one period to prevent target leakage, with `bfill` on the initial gap.
+### 2. Feature Engineering (`src/data_prep/engineer.py`)
+* Cyclical week-of-year encoding (`sin_week`, `cos_week`).
+* A 4-week rolling mean of sales per store, shifted by one period to prevent target leakage, with `bfill` on the initial gap.
+
+Statistical analysis is kept out of the pipeline, in `src/data_prep/statistical_analysis.ipynb`. It tests within-store normality (Shapiro-Wilk), cross-store variance homogeneity (Levene), store differences (Kruskal-Wallis) and feature significance (Spearman on per-store Z-scored sales). Its findings guide changes to the pipeline rather than running on every execution.
 
 ### 3. Train/Test Split (`src/data_prep/split.py`)
 * `time_based_split` sorts by date and splits chronologically (default 80/20) so the model is always trained on the past and evaluated on the future — no random shuffling, which would leak future information into training.
@@ -85,12 +84,14 @@ All three models substantially outperform the mean baseline, with the tree-based
 Requires Python 3.8+ and:
 
 ```bash
-pip install pandas numpy scipy statsmodels scikit-learn xgboost fredapi kagglehub
+pip install pandas numpy scipy statsmodels scikit-learn xgboost fredapi kagglehub pytest
 ```
 
 Set a `FRED_API_KEY` environment variable to use your own FRED API key (a fallback key is used otherwise).
 
 ## Usage
+
+Run from the project root, because data paths such as `data/raw/walmart` are relative to it:
 
 ```bash
 python main.py
@@ -100,8 +101,24 @@ This runs data acquisition/integration, feature engineering, model training/eval
 
 ## Tests
 
-Unit tests live in `src/tests/` and cover the split logic, model wrappers, and evaluation metrics:
+Unit tests live in `src/tests/` and cover the split logic, model wrappers, and evaluation metrics. Model tests run against `LinearRegressionModel`, `RandomForestRegressorModel` and `XGBoostModel` using synthetic regression data, and check that each model fits, predicts with the right shape and finite values, and beats a mean baseline.
+
+Run them from the project root:
 
 ```bash
-pytest src/tests/
+python -m pytest src/tests/                                              # all tests
+python -m pytest src/tests/test_models.py                                # one file
+python -m pytest src/tests/test_models.py::test_get_params_returns_dict  # one test
+python -m pytest src/tests/ -k "shape"                                   # filter by name
 ```
+
+### Running tests from the notebook
+
+`test.ipynb` runs the same tests without leaving Jupyter. Edit the settings at the top of the test runner cell and run it:
+
+* `TESTS`: an empty list runs all tests, or list files and single tests such as `"src/tests/test_models.py::test_get_params_returns_dict"`.
+* `KEYWORD`: an optional `-k` name filter.
+* `VERBOSE` and `STOP_ON_FIRST`: toggle `-v` and `-x`.
+* `LIST_ONLY`: set to `True` to print every available test name without running anything.
+
+Output streams into the notebook as the tests run, and the final line shows the pytest exit code, where 0 means all tests passed.
