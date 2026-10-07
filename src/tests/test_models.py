@@ -1,7 +1,7 @@
 """
 test_models.py
 
-Unit test for src/base/models.py.
+Unit test for src/models/models.py.
 
 Each model is tested for the following purposes:
 - every model conforms to the BaseModel interface
@@ -18,8 +18,13 @@ import pytest
 
 from sklearn.datasets import make_regression
 from src.models.base import BaseModel
-from src.models.linear_models import LinearRegressionModel
-from src.models.tree_models import XGBoostModel, RandomForestRegressorModel
+from src.models.models import (
+    LinearRegressionModel,
+    LassoModel,
+    ElasticNetModel,
+    RandomForestRegressorModel,
+    XGBoostModel,
+)
 
 # Synthetic regression data generator
 @pytest.fixture
@@ -34,7 +39,10 @@ def synthetic_data():
     return X, y
 
 # Specify models for which the whole test runs 
-@pytest.fixture(params=[LinearRegressionModel, XGBoostModel, RandomForestRegressorModel])
+@pytest.fixture(params=[
+    LinearRegressionModel, LassoModel, ElasticNetModel,
+    RandomForestRegressorModel, XGBoostModel,
+])
 def model(request):
     return request.param()
 

@@ -2,7 +2,7 @@
 base.py
 
 Defines the common interface every model wrapper in this project must follow.
-Models in the file <models.py> are all wrapped into this base.
+All model wrappers in models.py implement this interface.
 
 """
 

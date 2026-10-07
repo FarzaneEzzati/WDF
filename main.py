@@ -42,10 +42,17 @@ X_test = X_test.drop(columns=["Date"])
 # ---------------------------------------------------------------------------
 # Defining Machine Learning models
 # ---------------------------------------------------------------------------
-from src.models.linear_models import LinearRegressionModel
-from src.models.tree_models import XGBoostModel, RandomForestRegressorModel
+from src.models.models import (
+    LinearRegressionModel,
+    LassoModel,
+    ElasticNetModel,
+    RandomForestRegressorModel,
+    XGBoostModel,
+)
 models = {
     "LinearRegression": LinearRegressionModel(),
+    "Lasso": LassoModel(),
+    "ElasticNet": ElasticNetModel(),
     "RandomForest": RandomForestRegressorModel(n_estimators=200),
     "XGBoost": XGBoostModel(max_depth=6),
 }

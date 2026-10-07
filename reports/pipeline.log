@@ -131,3 +131,57 @@
 2026-09-20 17:32:20,244 | INFO | __main__ | Model <XGBoost> started to predict.
 2026-09-20 17:32:20,252 | INFO | __main__ | Model <Baseline (mean)> evaluation started.
 2026-09-20 17:32:20,258 | INFO | __main__ | Models evluations stored at reports/models_evaluations.csv
+2026-10-07 15:55:23,217 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at data/raw/walmart
+2026-10-07 15:55:23,227 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at data/raw/fred
+2026-10-07 15:55:23,238 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-10-07 15:55:23,249 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-10-07 15:55:23,251 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-10-07 15:55:23,251 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-10-07 15:55:23,264 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-10-07 15:55:23,264 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-10-07 15:55:23,264 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-10-07 15:55:23,280 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-10-07 15:55:23,290 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-10-07 15:55:23,291 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-10-07 15:55:23,307 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-10-07 15:55:23,316 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-10-07 15:55:24,552 | INFO | src.data_prep.split | Splitting dataset with test_size=0.2...
+2026-10-07 15:55:24,788 | INFO | __main__ | Model <LinearRegression> started to fit.
+2026-10-07 15:55:24,802 | INFO | __main__ | Model <LinearRegression> started to predict.
+2026-10-07 15:55:24,802 | INFO | __main__ | Model <Lasso> started to fit.
+2026-10-07 15:55:27,544 | INFO | __main__ | Model <Lasso> started to predict.
+2026-10-07 15:55:27,553 | INFO | __main__ | Model <ElasticNet> started to fit.
+2026-10-07 15:55:27,579 | INFO | __main__ | Model <ElasticNet> started to predict.
+2026-10-07 15:55:27,586 | INFO | __main__ | Model <RandomForest> started to fit.
+2026-10-07 15:55:30,216 | INFO | __main__ | Model <RandomForest> started to predict.
+2026-10-07 15:55:30,261 | INFO | __main__ | Model <XGBoost> started to fit.
+2026-10-07 15:55:30,779 | INFO | __main__ | Model <XGBoost> started to predict.
+2026-10-07 15:55:30,789 | INFO | __main__ | Model <Baseline (mean)> evaluation started.
+2026-10-07 15:55:30,795 | INFO | __main__ | Models evluations stored at reports/models_evaluations.csv
+2026-10-07 16:09:30,758 | INFO | src.data_prep.fetch_integrate | Walmart dataset already cached at data/raw/walmart
+2026-10-07 16:09:30,787 | INFO | src.data_prep.fetch_integrate | All FRED series already cached at data/raw/fred
+2026-10-07 16:09:30,798 | INFO | src.data_prep.fetch_integrate | Integrating Walamrt_Sales and FRED Data Sets...
+2026-10-07 16:09:30,804 | INFO | src.data_prep.fetch_integrate | Date converted to YearMonth for Walmart_Sales.
+2026-10-07 16:09:30,810 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'consumer_sentiment'.
+2026-10-07 16:09:30,824 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'advanced_retail_sales'.
+2026-10-07 16:09:30,829 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_consum_expend'.
+2026-10-07 16:09:30,839 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'personal_saving_rate'.
+2026-10-07 16:09:30,843 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'producer_price_index'.
+2026-10-07 16:09:30,850 | INFO | src.data_prep.fetch_integrate | Merged monthly series 'effective_federal_fund'.
+2026-10-07 16:09:30,857 | INFO | src.data_prep.fetch_integrate | Merged quarterly series 'household_dept_srvc_ratio' via merge_asof.
+2026-10-07 16:09:30,858 | INFO | src.data_prep.fetch_integrate | Integration complete. Shape: (6435, 15)
+2026-10-07 16:09:30,873 | INFO | src.data_prep.engineer | Seasonal time features using sine/cosine completed.
+2026-10-07 16:09:30,886 | INFO | src.data_prep.engineer | Rolling window aggregation for past average sales completed.
+2026-10-07 16:09:32,265 | INFO | src.data_prep.split | Splitting dataset with test_size=0.2...
+2026-10-07 16:09:32,520 | INFO | main | Model <LinearRegression> started to fit.
+2026-10-07 16:09:32,552 | INFO | main | Model <LinearRegression> started to predict.
+2026-10-07 16:09:32,570 | INFO | main | Model <Lasso> started to fit.
+2026-10-07 16:09:36,141 | INFO | main | Model <Lasso> started to predict.
+2026-10-07 16:09:36,162 | INFO | main | Model <ElasticNet> started to fit.
+2026-10-07 16:09:36,200 | INFO | main | Model <ElasticNet> started to predict.
+2026-10-07 16:09:36,208 | INFO | main | Model <RandomForest> started to fit.
+2026-10-07 16:09:39,177 | INFO | main | Model <RandomForest> started to predict.
+2026-10-07 16:09:39,236 | INFO | main | Model <XGBoost> started to fit.
+2026-10-07 16:09:39,754 | INFO | main | Model <XGBoost> started to predict.
+2026-10-07 16:09:39,764 | INFO | main | Model <Baseline (mean)> evaluation started.
+2026-10-07 16:09:39,769 | INFO | main | Models evluations stored at reports/models_evaluations.csv

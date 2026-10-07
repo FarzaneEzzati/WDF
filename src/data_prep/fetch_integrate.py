@@ -142,7 +142,7 @@ def integrate_datasets(
     """
     logger.info(f"Integrating Walamrt_Sales and FRED Data Sets...")
     walmart_df = walmart_df.copy()
-    walmart_df["Date"] = pd.to_datetime(walmart_df["Date"])
+    walmart_df["Date"] = pd.to_datetime(walmart_df["Date"], format="%d-%m-%Y")
     walmart_df["YearMonth"] = walmart_df["Date"].dt.to_period("M")
     logger.info("Date converted to YearMonth for Walmart_Sales.")
 

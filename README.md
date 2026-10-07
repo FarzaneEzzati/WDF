@@ -19,9 +19,7 @@ WDF/
 │   │   └── statistical_analysis.ipynb  # exploratory statistical tests
 │   ├── models/
 │   │   ├── base.py              # BaseModel interface (fit/predict/get_params)
-│   │   ├── linear_models.py     # LinearRegressionModel
-│   │   ├── tree_models.py       # RandomForestRegressorModel, XGBoostModel
-│   │   └── other_models.py      # (planned: KNN, SVR, MLP)
+│   │   └── models.py            # all model wrappers (linear and tree)
 │   ├── evaluate.py              # RMSE, MAE, R², MAPE
 │   └── tests/                   # unit tests for split, models, evaluate
 │
@@ -29,7 +27,7 @@ WDF/
 │   ├── pipeline.log             # run log
 │   └── models_evaluations.csv   # metrics per model, sorted by RMSE
 │
-├── test.ipynb            # notebook test runner (all or selected tests)
+├── test.ipynb                   # notebook test runner (all or selected tests)
 └── main.py                      # orchestrates the full pipeline
 ```
 
@@ -47,6 +45,7 @@ Running `main.py` executes the full pipeline end to end:
   * `TDSP` — Household Debt Service Ratio (quarterly)
   * `PPIACO` — Producer Price Index
   * `FEDFUNDS` — Effective Federal Funds Rate
+* Parses Walmart dates explicitly as day-month-year (`%d-%m-%Y`). Every week ends on a Friday.
 * Merges monthly indicators onto Walmart sales via an exact `YearMonth` join, and merges the quarterly `TDSP` series via `pd.merge_asof` (backward direction) to avoid lookahead bias.
 
 ### 2. Feature Engineering (`src/data_prep/engineer.py`)
@@ -60,24 +59,29 @@ Statistical analysis is kept out of the pipeline, in `src/data_prep/statistical_
 * `random_split` is also available for non-temporal experimentation but is not used in the main pipeline.
 
 ### 4. Models (`src/models/`)
-All models implement a common `BaseModel` interface (`fit`, `predict`, `get_params`):
-* `LinearRegressionModel`
-* `RandomForestRegressorModel`
-* `XGBoostModel`
+All model wrappers live in `src/models/models.py` and implement a common `BaseModel` interface (`fit`, `predict`, `get_params`):
+* Linear models: `LinearRegressionModel`, `LassoModel`, `ElasticNetModel`. Each one-hot encodes `Store`. Lasso and ElasticNet also standardise the other features so their penalty treats every feature equally.
+* Tree models: `RandomForestRegressorModel`, `XGBoostModel`. They use the features as they are.
 
 ### 5. Evaluation (`src/evaluate.py`)
 Each model, plus a mean-prediction baseline, is scored on RMSE, MAE, R², and MAPE. Results are written to `reports/models_evaluations.csv`, sorted by RMSE.
 
 ## Latest Results
 
+Test-set scores on the most recent 20% of weeks, from `reports/models_evaluations.csv`:
+
 | Model | RMSE | MAE | R² | MAPE (%) |
 |---|---|---|---|---|
-| RandomForest | 97,994.69 | 65,385.53 | 0.967 | 6.43 |
-| XGBoost | 98,237.10 | 67,924.53 | 0.967 | 6.95 |
-| LinearRegression | 117,919.30 | 91,170.68 | 0.952 | 10.72 |
-| Baseline (mean) | 570,716.27 | 472,384.82 | 0.000 | 67.38 |
+| LinearRegression | 70,742.19 | 50,083.21 | 0.982 | 4.92 |
+| XGBoost | 73,497.20 | 54,993.44 | 0.981 | 5.97 |
+| RandomForest | 73,779.40 | 52,480.19 | 0.981 | 5.16 |
+| Lasso | 112,287.21 | 85,019.81 | 0.956 | 10.19 |
+| ElasticNet | 190,897.12 | 159,973.23 | 0.872 | 23.07 |
+| Baseline (mean) | 571,873.16 | 473,115.57 | 0.000 | 67.41 |
 
-All three models substantially outperform the mean baseline, with the tree-based models (RandomForest, XGBoost) edging out linear regression.
+* Every model clearly beats the mean baseline.
+* Linear regression with one-hot encoded stores is the best model on every metric. XGBoost and RandomForest are close behind. XGBoost has slightly lower RMSE, while RandomForest has lower MAE and MAPE.
+* Lasso and ElasticNet use default penalty strengths that have not been tuned yet, which is why they trail plain linear regression. Tuning them with time-ordered cross-validation is the next step.
 
 ## Prerequisites & Installation
 
@@ -101,7 +105,7 @@ This runs data acquisition/integration, feature engineering, model training/eval
 
 ## Tests
 
-Unit tests live in `src/tests/` and cover the split logic, model wrappers, and evaluation metrics. Model tests run against `LinearRegressionModel`, `RandomForestRegressorModel` and `XGBoostModel` using synthetic regression data, and check that each model fits, predicts with the right shape and finite values, and beats a mean baseline.
+Unit tests live in `src/tests/` and cover the split logic, model wrappers, and evaluation metrics. Model tests run against all five model wrappers using synthetic regression data, and check that each model fits, predicts with the right shape and finite values, and beats a mean baseline.
 
 Run them from the project root:
 
